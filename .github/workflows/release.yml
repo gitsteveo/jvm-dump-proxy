@@ -1,5 +1,7 @@
 name: C/C++ CI
-
+permissions:
+  contents: read
+  issues: write
 on:
   workflow_dispatch:
   push:
