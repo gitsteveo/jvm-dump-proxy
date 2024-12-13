@@ -1,7 +1,9 @@
 name: C/C++ CI
+
 permissions:
-  contents: read
+  contents: write
   issues: write
+
 on:
   workflow_dispatch:
   push:
@@ -11,13 +13,12 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.API_GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Build
         run: |
@@ -27,6 +28,6 @@ jobs:
           cmake --build .
 
       - name: Action For Semantic Release
-        uses: cycjimmy/semantic-release-action@v2.4.1
+        uses: cycjimmy/semantic-release-action@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
