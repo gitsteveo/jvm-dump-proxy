@@ -20,10 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
+
 
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v1.13
