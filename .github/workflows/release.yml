@@ -20,12 +20,26 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1.13
+
       - name: Build
         run: |
           mkdir build
           cd build
           cmake .. -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles"
           cmake --build .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: version-dll
+          path: build/version.dll
 
       - name: Action For Semantic Release
         uses: cycjimmy/semantic-release-action@v3
