@@ -23,7 +23,7 @@ jobs:
         uses: egor-tensin/setup-mingw@v2
         with:
           platform: x64
-          version: '7.0.0' # Specify the MinGW version here
+          version: '8.0.0' # Specify the MinGW version here
 
       - name: Verify MinGW Version
         run: |
