@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles"
+          cmake .. -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles" -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++ -static"
           cmake --build .
 
       - name: Upload artifact
