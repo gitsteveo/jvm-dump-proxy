@@ -13,37 +13,22 @@ on:
 
 jobs:
   build:
+
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
-          version: '7.0.0'
-      
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v1.13
-        with:
-          cmake-version: '3.16.x'
+          token: ${{ secrets.API_GITHUB_TOKEN }}
 
       - name: Build
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles" -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++ -static"
+          cmake .. -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles"
           cmake --build .
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: version-dll
-          path: build/version.dll
-
       - name: Action For Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v2.4.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
